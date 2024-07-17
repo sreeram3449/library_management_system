@@ -18,4 +18,6 @@ public interface BookRepository extends MongoRepository<Book, String> {
     Optional<List<Book>> findByTitle(String title);
 
     Optional<List<Book>> findByAuthor(String author);
+
+    Long deleteByIsbn(String isbn);
 }

@@ -17,4 +17,6 @@ public interface LibraryService {
     Optional<List<Book>> findBookByTitle(String title);
 
     Optional<List<Book>> findBookByAuthor(String author);
+
+    Long removeBook(String isbn);
 }

@@ -64,4 +64,9 @@ public class LibraryController {
                 .<ResponseEntity<Object>>map(value -> new ResponseEntity<>(libraryService.findBookByAuthor(author), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>("No Books by Author " + author + "Found", HttpStatus.OK));
     }
+
+    @DeleteMapping("/{isbn}")
+    ResponseEntity<Long> removeBook(@PathVariable String isbn) {
+        return new ResponseEntity<>(libraryService.removeBook(isbn), HttpStatus.OK);
+    }
 }

@@ -21,8 +21,7 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -173,5 +172,15 @@ public class LibraryControllerTest {
         mockMvc.perform(get("/api/books/author/Arthur Conan Doyle"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("No Books by Author Arthur Conan DoyleFound"));
+    }
+
+    @Test
+    @WithMockUser
+    public void testRemoveBook_Success() throws Exception {
+        when(libraryService.removeBook("978-1-56619-909-4")).thenReturn(1L);
+
+        mockMvc.perform(delete("/api/books/978-1-56619-909-4"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("1"));
     }
 }

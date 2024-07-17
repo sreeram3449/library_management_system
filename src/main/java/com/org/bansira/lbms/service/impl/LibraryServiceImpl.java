@@ -69,4 +69,13 @@ public class LibraryServiceImpl implements LibraryService {
     public Optional<List<Book>> findBookByAuthor(String author) {
         return bookRepository.findByAuthor(author);
     }
+
+    /**
+     * @param isbn
+     * @return
+     */
+    @Override
+    public Long removeBook(String isbn) {
+        return bookRepository.deleteByIsbn(isbn);
+    }
 }

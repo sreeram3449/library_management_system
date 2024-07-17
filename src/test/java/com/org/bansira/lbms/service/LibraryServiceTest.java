@@ -112,4 +112,13 @@ public class LibraryServiceTest {
         assertTrue(result.isPresent());
         assertEquals(books, result.get());
     }
+
+    @Test
+    void testRemoveBook() {
+        when(bookRepository.deleteByIsbn(anyString())).thenReturn(1L);
+
+        Long result = libraryService.removeBook("978-1-56619-909-4");
+
+        assertEquals(1L, result);
+    }
 }
