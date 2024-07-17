@@ -11,4 +11,6 @@ public interface LibraryService {
     Optional<Book> findBookByIsbn(String isbn);
 
     Optional<List<Book>> listAllBooks();
+
+    Optional<List<Book>> listAvailableBooks();
 }

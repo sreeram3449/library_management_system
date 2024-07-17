@@ -100,4 +100,36 @@ public class LibraryControllerTest {
                 .andExpect(jsonPath("$[0].isbn").value(book1.getIsbn()))
                 .andExpect(jsonPath("$[1].isbn").value(book2.getIsbn()));
     }
+
+    @Test
+    @WithMockUser
+    public void testGetAllBooks_NotFound() throws Exception {
+        when(libraryService.listAllBooks()).thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/api/books"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("No Books Found"));
+    }
+
+    @Test
+    @WithMockUser
+    public void testGetAllAvailableBooks_Found() throws Exception {
+        List<Book> books = Arrays.asList(book1, book2);
+        when(libraryService.listAvailableBooks()).thenReturn(Optional.of(books));
+
+        mockMvc.perform(get("/api/books/available"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].isbn").value(book1.getIsbn()))
+                .andExpect(jsonPath("$[1].isbn").value(book2.getIsbn()));
+    }
+
+    @Test
+    @WithMockUser
+    public void testGetAllAvailableBooks_NotFound() throws Exception {
+        when(libraryService.listAvailableBooks()).thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/api/books/available"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("No Books Available"));
+    }
 }

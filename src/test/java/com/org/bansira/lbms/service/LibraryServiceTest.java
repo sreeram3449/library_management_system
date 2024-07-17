@@ -79,4 +79,15 @@ public class LibraryServiceTest {
         assertTrue(result.isPresent());
         assertEquals(books, result.get());
     }
+
+    @Test
+    void testListAvailableBooks() {
+        List<Book> books = Collections.singletonList(book);
+        when(bookRepository.findByIsAvailable(true)).thenReturn(Optional.of(books));
+
+        Optional<List<Book>> result = libraryService.listAvailableBooks();
+
+        assertTrue(result.isPresent());
+        assertEquals(books, result.get());
+    }
 }

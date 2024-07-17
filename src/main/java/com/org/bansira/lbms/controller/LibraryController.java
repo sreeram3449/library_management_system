@@ -40,4 +40,12 @@ public class LibraryController {
                 .<ResponseEntity<Object>>map(books -> new ResponseEntity<>(books, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>("No Books Found", HttpStatus.OK));
     }
+
+    @GetMapping("/available")
+    ResponseEntity<Object> getAllAvailableBooks() {
+        Optional<List<Book>> response = libraryService.listAvailableBooks();
+        return response
+                .<ResponseEntity<Object>>map(value -> new ResponseEntity<>(libraryService.listAvailableBooks(), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>("No Books Available", HttpStatus.OK));
+    }
 }
