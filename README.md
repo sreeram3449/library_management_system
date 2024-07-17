@@ -1,4 +1,5 @@
-**Library Management System For Bansira**
+**Library Management System**
+Technical Assessment for Bansira
 
 - REST APIs for CRUD operations on Books
 - Interactive CLI Library Menu
