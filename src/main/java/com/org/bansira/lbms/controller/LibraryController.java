@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -30,5 +31,13 @@ public class LibraryController {
         return response
                 .<ResponseEntity<Object>>map(value -> new ResponseEntity<>(libraryService.findBookByIsbn(isbn), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>("Book with ISBN " + isbn + " not found", HttpStatus.OK));
+    }
+
+    @GetMapping
+    ResponseEntity<Object> getAllBooks() {
+        Optional<List<Book>> response = libraryService.listAllBooks();
+        return response
+                .<ResponseEntity<Object>>map(books -> new ResponseEntity<>(books, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>("No Books Found", HttpStatus.OK));
     }
 }

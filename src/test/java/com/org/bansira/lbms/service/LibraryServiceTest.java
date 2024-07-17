@@ -12,6 +12,8 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,5 +67,16 @@ public class LibraryServiceTest {
 
         assertTrue(result.isPresent());
         assertEquals(book, result.get());
+    }
+
+    @Test
+    void testListAllBooks() {
+        List<Book> books = Collections.singletonList(book);
+        when(bookRepository.findAll()).thenReturn(books);
+
+        Optional<List<Book>> result = libraryService.listAllBooks();
+
+        assertTrue(result.isPresent());
+        assertEquals(books, result.get());
     }
 }

@@ -6,6 +6,7 @@ import com.org.bansira.lbms.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,5 +34,13 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public Optional<Book> findBookByIsbn(String isbn) {
         return bookRepository.findByIsbn(isbn);
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public Optional<List<Book>> listAllBooks() {
+        return Optional.of(bookRepository.findAll());
     }
 }

@@ -15,6 +15,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -85,5 +87,17 @@ public class LibraryControllerTest {
         mockMvc.perform(get("/api/books/978-1-56619-909-4"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Book with ISBN 978-1-56619-909-4 not found"));
+    }
+
+    @Test
+    @WithMockUser
+    public void testGetAllBooks_Found() throws Exception {
+        List<Book> books = Arrays.asList(book1, book2);
+        when(libraryService.listAllBooks()).thenReturn(Optional.of(books));
+
+        mockMvc.perform(get("/api/books"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].isbn").value(book1.getIsbn()))
+                .andExpect(jsonPath("$[1].isbn").value(book2.getIsbn()));
     }
 }
