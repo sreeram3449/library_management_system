@@ -56,4 +56,14 @@ public class LibraryServiceTest {
 
         assertFalse(result.isPresent());
     }
+
+    @Test
+    void testFindBookByIsbn() {
+        when(bookRepository.findByIsbn(anyString())).thenReturn(Optional.of(book));
+
+        Optional<Book> result = libraryService.findBookByIsbn("978-1-56619-909-4");
+
+        assertTrue(result.isPresent());
+        assertEquals(book, result.get());
+    }
 }

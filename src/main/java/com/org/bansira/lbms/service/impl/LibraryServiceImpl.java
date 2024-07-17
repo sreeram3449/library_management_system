@@ -25,4 +25,13 @@ public class LibraryServiceImpl implements LibraryService {
         }
         return Optional.of(bookRepository.save(book));
     }
+
+    /**
+     * @param isbn
+     * @return
+     */
+    @Override
+    public Optional<Book> findBookByIsbn(String isbn) {
+        return bookRepository.findByIsbn(isbn);
+    }
 }

@@ -5,10 +5,7 @@ import com.org.bansira.lbms.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -25,5 +22,13 @@ public class LibraryController {
         return response
                 .<ResponseEntity<Object>>map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>("Book with ISBN " + book.getIsbn() + " already exists", HttpStatus.CONFLICT));
+    }
+
+    @GetMapping("/{isbn}")
+    ResponseEntity<Object> getBookByIsbn(@PathVariable String isbn) {
+        Optional<Book> response = libraryService.findBookByIsbn(isbn);
+        return response
+                .<ResponseEntity<Object>>map(value -> new ResponseEntity<>(libraryService.findBookByIsbn(isbn), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>("Book with ISBN " + isbn + " not found", HttpStatus.OK));
     }
 }

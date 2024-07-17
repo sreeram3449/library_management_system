@@ -19,6 +19,7 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -64,5 +65,25 @@ public class LibraryControllerTest {
                         .content("{ \"isbn\": \"978-1-56619-909-4\", \"title\": \"The Adventures of Sherlock Holmes\", \"author\": \"Arthur Conan Doyle\", \"genre\": \"Mystery\", \"publicationYear\": 1892, \"department\": \"Literature\", \"isAvailable\": true }"))
                 .andExpect(status().isConflict())
                 .andExpect(content().string("Book with ISBN 978-1-56619-909-4 already exists"));
+    }
+
+    @Test
+    @WithMockUser
+    public void testGetBookByIsbn_Found() throws Exception {
+        when(libraryService.findBookByIsbn("978-1-56619-909-4")).thenReturn(Optional.of(book1));
+
+        mockMvc.perform(get("/api/books/978-1-56619-909-4"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.isbn").value(book1.getIsbn()));
+    }
+
+    @Test
+    @WithMockUser
+    public void testGetBookByIsbn_NotFound() throws Exception {
+        when(libraryService.findBookByIsbn("978-1-56619-909-4")).thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/api/books/978-1-56619-909-4"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Book with ISBN 978-1-56619-909-4 not found"));
     }
 }
