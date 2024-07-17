@@ -51,4 +51,13 @@ public class LibraryServiceImpl implements LibraryService {
     public Optional<List<Book>> listAvailableBooks() {
         return bookRepository.findByIsAvailable(Boolean.TRUE);
     }
+
+    /**
+     * @param title
+     * @return
+     */
+    @Override
+    public Optional<List<Book>> findBookByTitle(String title) {
+        return bookRepository.findByTitle(title);
+    }
 }

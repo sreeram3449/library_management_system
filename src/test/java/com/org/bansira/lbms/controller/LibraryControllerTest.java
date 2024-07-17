@@ -132,4 +132,25 @@ public class LibraryControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("No Books Available"));
     }
+
+    @Test
+    @WithMockUser
+    public void testGetBookByTitle_Found() throws Exception {
+        List<Book> books = Arrays.asList(book1);
+        when(libraryService.findBookByTitle("The Adventures of Sherlock Holmes")).thenReturn(Optional.of(books));
+
+        mockMvc.perform(get("/api/books/title/The Adventures of Sherlock Holmes"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].isbn").value(book1.getIsbn()));
+    }
+
+    @Test
+    @WithMockUser
+    public void testGetBookByTitle_NotFound() throws Exception {
+        when(libraryService.findBookByTitle("The Adventures of Sherlock Holmes")).thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/api/books/title/The Adventures of Sherlock Holmes"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Book with Title The Adventures of Sherlock Holmesnot found"));
+    }
 }

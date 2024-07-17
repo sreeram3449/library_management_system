@@ -90,4 +90,15 @@ public class LibraryServiceTest {
         assertTrue(result.isPresent());
         assertEquals(books, result.get());
     }
+
+    @Test
+    void testFindBookByTitle() {
+        List<Book> books = Collections.singletonList(book);
+        when(bookRepository.findByTitle(anyString())).thenReturn(Optional.of(books));
+
+        Optional<List<Book>> result = libraryService.findBookByTitle("The Adventures of Sherlock Holmes");
+
+        assertTrue(result.isPresent());
+        assertEquals(books, result.get());
+    }
 }
