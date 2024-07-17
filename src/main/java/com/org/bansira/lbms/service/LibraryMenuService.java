@@ -1,3 +1,6 @@
+/**
+ * This package contains service layer implementations of Library APIs.
+ */
 package com.org.bansira.lbms.service;
 
 import com.org.bansira.lbms.domain.Book;
@@ -9,6 +12,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
+/**
+ * Interactive CLI Menu for Library Management
+ */
 @Service
 public class LibraryMenuService implements CommandLineRunner {
 

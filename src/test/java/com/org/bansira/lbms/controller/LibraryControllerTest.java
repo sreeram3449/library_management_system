@@ -1,9 +1,13 @@
+/**
+ * This package contains unit tests for Library API endpoints.
+ */
 package com.org.bansira.lbms.controller;
 
 import com.org.bansira.lbms.domain.Book;
 import com.org.bansira.lbms.security.TestSecurityConfig;
 import com.org.bansira.lbms.service.LibraryService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -38,6 +42,9 @@ public class LibraryControllerTest {
     private Book book1;
     private Book book2;
 
+    /**
+     * Dummy Book objects for running tests.
+     */
     @BeforeEach
     public void setUp() {
         book1 = new Book("The Adventures of Sherlock Holmes", "978-1-56619-909-4", "Arthur Conan Doyle", "Mystery", 1892, "Literature", true);
@@ -46,6 +53,7 @@ public class LibraryControllerTest {
 
     @Test
     @WithMockUser
+    @DisplayName("Add Book to Library Success Scenario")
     public void testAddBook_Success() throws Exception {
         when(libraryService.addBook(any(Book.class))).thenReturn(Optional.of(book1));
 
@@ -58,6 +66,7 @@ public class LibraryControllerTest {
 
     @Test
     @WithMockUser
+    @DisplayName("Add Book to Library Failure Scenario")
     public void testAddBook_Conflict() throws Exception {
         when(libraryService.addBook(any(Book.class))).thenReturn(Optional.empty());
 
@@ -70,6 +79,7 @@ public class LibraryControllerTest {
 
     @Test
     @WithMockUser
+    @DisplayName("Get Book by ISBN Success Scenario")
     public void testGetBookByIsbn_Found() throws Exception {
         when(libraryService.findBookByIsbn("978-1-56619-909-4")).thenReturn(Optional.of(book1));
 
@@ -80,6 +90,7 @@ public class LibraryControllerTest {
 
     @Test
     @WithMockUser
+    @DisplayName("Get Book by ISBN Failure Scenario")
     public void testGetBookByIsbn_NotFound() throws Exception {
         when(libraryService.findBookByIsbn("978-1-56619-909-4")).thenReturn(Optional.empty());
 
@@ -90,6 +101,7 @@ public class LibraryControllerTest {
 
     @Test
     @WithMockUser
+    @DisplayName("Get All Registered Books Success Scenario")
     public void testGetAllBooks_Found() throws Exception {
         List<Book> books = Arrays.asList(book1, book2);
         when(libraryService.listAllBooks()).thenReturn(Optional.of(books));
@@ -102,6 +114,7 @@ public class LibraryControllerTest {
 
     @Test
     @WithMockUser
+    @DisplayName("Get All Registered Books Failure Scenario")
     public void testGetAllBooks_NotFound() throws Exception {
         when(libraryService.listAllBooks()).thenReturn(Optional.empty());
 
@@ -112,6 +125,7 @@ public class LibraryControllerTest {
 
     @Test
     @WithMockUser
+    @DisplayName("Get All Available Books Success Scenario")
     public void testGetAllAvailableBooks_Found() throws Exception {
         List<Book> books = Arrays.asList(book1, book2);
         when(libraryService.listAvailableBooks()).thenReturn(Optional.of(books));
@@ -124,6 +138,7 @@ public class LibraryControllerTest {
 
     @Test
     @WithMockUser
+    @DisplayName("Get All Available Books Failure Scenario")
     public void testGetAllAvailableBooks_NotFound() throws Exception {
         when(libraryService.listAvailableBooks()).thenReturn(Optional.empty());
 
@@ -134,6 +149,7 @@ public class LibraryControllerTest {
 
     @Test
     @WithMockUser
+    @DisplayName("Get All Books matching given Title Success Scenario")
     public void testGetBookByTitle_Found() throws Exception {
         List<Book> books = Arrays.asList(book1);
         when(libraryService.findBookByTitle("The Adventures of Sherlock Holmes")).thenReturn(Optional.of(books));
@@ -145,6 +161,7 @@ public class LibraryControllerTest {
 
     @Test
     @WithMockUser
+    @DisplayName("Get All Books matching given Title Failure Scenario")
     public void testGetBookByTitle_NotFound() throws Exception {
         when(libraryService.findBookByTitle("The Adventures of Sherlock Holmes")).thenReturn(Optional.empty());
 
@@ -155,6 +172,7 @@ public class LibraryControllerTest {
 
     @Test
     @WithMockUser
+    @DisplayName("Get Books By Author Success Scenario")
     public void testGetBookByAuthor_Found() throws Exception {
         List<Book> books = Arrays.asList(book1);
         when(libraryService.findBookByAuthor("Arthur Conan Doyle")).thenReturn(Optional.of(books));
@@ -166,6 +184,7 @@ public class LibraryControllerTest {
 
     @Test
     @WithMockUser
+    @DisplayName("Get Books By Author Failure Scenario")
     public void testGetBookByAuthor_NotFound() throws Exception {
         when(libraryService.findBookByAuthor("Arthur Conan Doyle")).thenReturn(Optional.empty());
 
@@ -176,6 +195,7 @@ public class LibraryControllerTest {
 
     @Test
     @WithMockUser
+    @DisplayName("Remove Book from Library Success Scenario")
     public void testRemoveBook_Success() throws Exception {
         when(libraryService.removeBook("978-1-56619-909-4")).thenReturn(1L);
 

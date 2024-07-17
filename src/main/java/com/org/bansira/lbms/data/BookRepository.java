@@ -1,3 +1,6 @@
+/**
+ * This package contains all the DB queries for the Book collection.
+ */
 package com.org.bansira.lbms.data;
 
 import com.org.bansira.lbms.domain.Book;

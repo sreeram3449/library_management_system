@@ -1,3 +1,6 @@
+/**
+ * This package contains service layer implementations of Library APIs.
+ */
 package com.org.bansira.lbms.service;
 
 import com.org.bansira.lbms.domain.Book;

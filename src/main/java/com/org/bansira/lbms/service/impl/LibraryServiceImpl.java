@@ -1,3 +1,6 @@
+/**
+ * This package contains service layer implementations of Library APIs.
+ */
 package com.org.bansira.lbms.service.impl;
 
 import com.org.bansira.lbms.data.BookRepository;
@@ -15,9 +18,9 @@ public class LibraryServiceImpl implements LibraryService {
     @Autowired
     BookRepository bookRepository;
 
-    /**
-     * @param book
-     * @return
+    /** Adds a book to the library.
+     * @param book the book to be added.
+     * @return a saved book if saved successfully or returns an empty Optional object.
      */
     @Override
     public Optional<Book> addBook(Book book) {
@@ -27,52 +30,52 @@ public class LibraryServiceImpl implements LibraryService {
         return Optional.of(bookRepository.save(book));
     }
 
-    /**
-     * @param isbn
-     * @return
+    /** Fetches a Book by ISBN.
+     * @param isbn is the unique id of the book to be fetched.
+     * @returnthe book with given ISBN or null object wrapped in Optional object.
      */
     @Override
     public Optional<Book> findBookByIsbn(String isbn) {
         return bookRepository.findByIsbn(isbn);
     }
 
-    /**
-     * @return
+    /** Fetches all registered books in the library.
+     * @return a list of books registered in the library.
      */
     @Override
     public Optional<List<Book>> listAllBooks() {
         return Optional.of(bookRepository.findAll());
     }
 
-    /**
-     * @return
+    /** Fetches all books that are currently available in the library.
+     * @return a list of books currently available in the library.
      */
     @Override
     public Optional<List<Book>> listAvailableBooks() {
         return bookRepository.findByIsAvailable(Boolean.TRUE);
     }
 
-    /**
-     * @param title
-     * @return
+    /** Fetches all books matching a title provided.
+     * @param title to match the books in the library.
+     * @return a list of books matching the given title wrapped in Optional object.
      */
     @Override
     public Optional<List<Book>> findBookByTitle(String title) {
         return bookRepository.findByTitle(title);
     }
 
-    /**
-     * @param author
-     * @return
+    /** Fetches all books by author.
+     * @param author of the books to be fetched from the library.
+     * @return a list of books by the author provided.
      */
     @Override
     public Optional<List<Book>> findBookByAuthor(String author) {
         return bookRepository.findByAuthor(author);
     }
 
-    /**
-     * @param isbn
-     * @return
+    /** Removes a book by ISBN provided.
+     * @param isbn is the unique id of the book to be removed from the library.
+     * @return a count of books successfully removed from the library.
      */
     @Override
     public Long removeBook(String isbn) {

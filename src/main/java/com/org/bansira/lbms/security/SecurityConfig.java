@@ -1,3 +1,6 @@
+/**
+ * This package contains web security configuration of the APIs.
+ */
 package com.org.bansira.lbms.security;
 
 import org.springframework.context.annotation.Bean;
@@ -14,9 +17,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests(authorizeRequests ->
-                        authorizeRequests.anyRequest().permitAll()  // Allow all requests
+                        authorizeRequests.anyRequest().permitAll()  // Allow all requests.
                 )
-                .csrf(AbstractHttpConfigurer::disable);
+                .csrf(AbstractHttpConfigurer::disable);  // disabled csrf for testing APIs through postman.
 
         return http.build();
     }

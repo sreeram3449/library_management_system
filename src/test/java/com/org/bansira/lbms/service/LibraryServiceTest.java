@@ -1,9 +1,13 @@
+/**
+ * This package contains the unit tests for service layer of Library APIs.
+ */
 package com.org.bansira.lbms.service;
 
 import com.org.bansira.lbms.data.BookRepository;
 import com.org.bansira.lbms.domain.Book;
 import com.org.bansira.lbms.service.impl.LibraryServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -33,6 +37,9 @@ public class LibraryServiceTest {
 
     private Book book;
 
+    /**
+     * Dummy Book objects for running tests.
+     */
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -40,6 +47,7 @@ public class LibraryServiceTest {
     }
 
     @Test
+    @DisplayName("Add Book to Library")
     void testAddBook_Success() {
         when(bookRepository.existsByIsbn(anyString())).thenReturn(false);
         when(bookRepository.save(any(Book.class))).thenReturn(book);
@@ -51,6 +59,7 @@ public class LibraryServiceTest {
     }
 
     @Test
+    @DisplayName("Book Already Exists in Library")
     void testAddBook_AlreadyExists() {
         when(bookRepository.existsByIsbn(anyString())).thenReturn(true);
 
@@ -60,6 +69,7 @@ public class LibraryServiceTest {
     }
 
     @Test
+    @DisplayName("Get Book by ISBN from Library")
     void testFindBookByIsbn() {
         when(bookRepository.findByIsbn(anyString())).thenReturn(Optional.of(book));
 
@@ -70,6 +80,7 @@ public class LibraryServiceTest {
     }
 
     @Test
+    @DisplayName("Get all Books registered from Library")
     void testListAllBooks() {
         List<Book> books = Collections.singletonList(book);
         when(bookRepository.findAll()).thenReturn(books);
@@ -81,6 +92,7 @@ public class LibraryServiceTest {
     }
 
     @Test
+    @DisplayName("Get all available Books form Library")
     void testListAvailableBooks() {
         List<Book> books = Collections.singletonList(book);
         when(bookRepository.findByIsAvailable(true)).thenReturn(Optional.of(books));
@@ -92,6 +104,7 @@ public class LibraryServiceTest {
     }
 
     @Test
+    @DisplayName("Get Books matching a Title from Library")
     void testFindBookByTitle() {
         List<Book> books = Collections.singletonList(book);
         when(bookRepository.findByTitle(anyString())).thenReturn(Optional.of(books));
@@ -103,6 +116,7 @@ public class LibraryServiceTest {
     }
 
     @Test
+    @DisplayName("Get Books by an Author from Library")
     void testFindBookByAuthor() {
         List<Book> books = Collections.singletonList(book);
         when(bookRepository.findByAuthor(anyString())).thenReturn(Optional.of(books));
@@ -114,6 +128,7 @@ public class LibraryServiceTest {
     }
 
     @Test
+    @DisplayName("Remove Book by ISBN from Library")
     void testRemoveBook() {
         when(bookRepository.deleteByIsbn(anyString())).thenReturn(1L);
 

@@ -1,3 +1,6 @@
+/**
+ * This package contains the representation of a Book in the library.
+ */
 package com.org.bansira.lbms.domain;
 
 import lombok.AllArgsConstructor;
@@ -14,14 +17,14 @@ import java.util.Objects;
 @NoArgsConstructor
 public class Book {
     @Id
-    private String Id;
+    private String Id; //unique id of the document
     private String title;
-    private String isbn;
+    private String isbn; //unique id for a book.
     private String author;
     private String genre;
     private Integer publicationYear;
-    private String department;
-    private Boolean isAvailable;
+    private String department; // a book can be part of only 1 department.
+    private Boolean isAvailable; // current availability of the book in the library.
 
     public Book(String title, String isbn, String author, String genre, Integer publicationYear, String department, Boolean isAvailable) {
         this.title = title;

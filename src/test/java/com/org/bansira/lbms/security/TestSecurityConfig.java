@@ -1,3 +1,6 @@
+/**
+ * This package contains the web security configuration for testing the APIs Mocked using Mockito Framework.
+ */
 package com.org.bansira.lbms.security;
 
 import org.springframework.context.annotation.Bean;
