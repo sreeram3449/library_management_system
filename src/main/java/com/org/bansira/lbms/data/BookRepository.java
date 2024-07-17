@@ -1,4 +1,9 @@
 package com.org.bansira.lbms.data;
 
-public interface BookRepository {
+import com.org.bansira.lbms.domain.Book;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface BookRepository extends MongoRepository<Book, String> {
 }
