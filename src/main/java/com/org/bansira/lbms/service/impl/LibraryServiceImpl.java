@@ -60,4 +60,13 @@ public class LibraryServiceImpl implements LibraryService {
     public Optional<List<Book>> findBookByTitle(String title) {
         return bookRepository.findByTitle(title);
     }
+
+    /**
+     * @param author
+     * @return
+     */
+    @Override
+    public Optional<List<Book>> findBookByAuthor(String author) {
+        return bookRepository.findByAuthor(author);
+    }
 }

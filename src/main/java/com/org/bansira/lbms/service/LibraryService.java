@@ -15,4 +15,6 @@ public interface LibraryService {
     Optional<List<Book>> listAvailableBooks();
 
     Optional<List<Book>> findBookByTitle(String title);
+
+    Optional<List<Book>> findBookByAuthor(String author);
 }

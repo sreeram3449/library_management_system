@@ -101,4 +101,15 @@ public class LibraryServiceTest {
         assertTrue(result.isPresent());
         assertEquals(books, result.get());
     }
+
+    @Test
+    void testFindBookByAuthor() {
+        List<Book> books = Collections.singletonList(book);
+        when(bookRepository.findByAuthor(anyString())).thenReturn(Optional.of(books));
+
+        Optional<List<Book>> result = libraryService.findBookByAuthor("Arthur Conan Doyle");
+
+        assertTrue(result.isPresent());
+        assertEquals(books, result.get());
+    }
 }

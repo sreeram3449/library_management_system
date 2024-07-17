@@ -56,4 +56,12 @@ public class LibraryController {
                 .<ResponseEntity<Object>>map(value -> new ResponseEntity<>(libraryService.findBookByTitle(title), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>("Book with Title " + title + "not found", HttpStatus.OK));
     }
+
+    @GetMapping("/author/{author}")
+    ResponseEntity<Object> getBookByAuthor(@PathVariable String author) {
+        Optional<List<Book>> response = libraryService.findBookByAuthor(author);
+        return response
+                .<ResponseEntity<Object>>map(value -> new ResponseEntity<>(libraryService.findBookByAuthor(author), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>("No Books by Author " + author + "Found", HttpStatus.OK));
+    }
 }
